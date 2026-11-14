@@ -63,7 +63,7 @@ def run_plain_cli(assistant: AssistantService, tts: SpeechService) -> None:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        prog="pln-proj",
+        prog="bebeta-assistente",
         description="Personal assistant with semantic embeddings, SQLite CRUD, and Rich CLI.",
     )
     parser.add_argument(

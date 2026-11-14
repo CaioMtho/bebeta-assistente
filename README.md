@@ -1,4 +1,4 @@
-# pln-proj (Bebeta)
+# bebeta-assistente
 
 Assistente pessoal de linha de comando em português para gerenciar anotações/lembretes, fazer pesquisas no navegador e consultar hora e data.
 
@@ -36,15 +36,15 @@ A Bebeta é uma assistente que roda no terminal. Ela entende comandos em linguag
 
 ```bash
 uv sync
-uv run pln-proj
+uv run bebeta-assistente
 ```
 
 Opções de linha de comando:
 
 ```bash
-uv run pln-proj --plain          # modo texto simples, sem Rich
-uv run pln-proj --no-tts         # desativa a voz
-uv run pln-proj --db outro.db    # usa outro arquivo SQLite
+uv run bebeta-assistente --plain          # modo texto simples, sem Rich
+uv run bebeta-assistente --no-tts         # desativa a voz
+uv run bebeta-assistente --db outro.db    # usa outro arquivo SQLite
 ```
 
 ### Comandos no chat

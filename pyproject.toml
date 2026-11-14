@@ -1,5 +1,5 @@
 [project]
-name = "pln-proj"
+name = "bebeta-assistente"
 version = "0.1.0"
 description = "Personal assistant with semantic intent recognition, SQLite notes CRUD, TTS, and Rich terminal UI."
 readme = "README.md"
@@ -17,8 +17,11 @@ dependencies = [
 ]
 
 [project.scripts]
-pln-proj = "pln_proj:main"
+bebeta-assistente = "pln_proj:main"
 
 [build-system]
 requires = ["uv_build>=0.13.7,<0.14.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "pln_proj"
