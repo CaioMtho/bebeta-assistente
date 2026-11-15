@@ -30,9 +30,22 @@ class SentenceTransformerBackend:
         self._model = None
 
     def warm_up(self) -> None:
-        if self._model is None:
-            from sentence_transformers import SentenceTransformer
+        if self._model is not None:
+            return
 
+        from sentence_transformers import SentenceTransformer
+
+        try:
+            from transformers.utils import logging as hf_logging
+
+            hf_logging.disable_progress_bar()
+        except Exception:
+            pass
+
+        try:
+            # Prefer cached local files to avoid unnecessary HF Hub checks/warnings.
+            self._model = SentenceTransformer(self.model_name, local_files_only=True)
+        except Exception:
             self._model = SentenceTransformer(self.model_name)
 
     def encode(self, texts: list[str]) -> np.ndarray:
@@ -147,41 +160,43 @@ class SemanticIntentClassifier:
         )
 
     def ensure_ready(self) -> None:
-        """Load cached anchor embeddings or compute them if missing."""
-        if self._anchor_matrix is not None:
-            return
+        """Load cached anchor embeddings (or compute them) and warm up the backend."""
+        if self._anchor_matrix is None:
+            cache = self._cache_paths()
+            if cache is not None:
+                npy_path, meta_path = cache
+                if npy_path.exists() and meta_path.exists():
+                    try:
+                        loaded = np.load(npy_path)
+                        if loaded.shape[0] == len(self._anchor_texts):
+                            self._anchor_matrix = _l2_normalize(loaded)
+                    except Exception:
+                        pass
 
-        cache = self._cache_paths()
-        if cache is not None:
-            npy_path, meta_path = cache
-            if npy_path.exists() and meta_path.exists():
-                try:
-                    loaded = np.load(npy_path)
-                    if loaded.shape[0] == len(self._anchor_texts):
-                        self._anchor_matrix = _l2_normalize(loaded)
-                        return
-                except Exception:
-                    pass
+            if self._anchor_matrix is None:
+                matrix = _l2_normalize(self.backend.encode(self._anchor_texts))
+                self._anchor_matrix = matrix
 
-        matrix = _l2_normalize(self.backend.encode(self._anchor_texts))
-        self._anchor_matrix = matrix
+                if cache is not None and matrix.size > 0:
+                    npy_path, meta_path = cache
+                    try:
+                        self.cache_dir.mkdir(parents=True, exist_ok=True)  # type: ignore[union-attr]
+                        np.save(npy_path, matrix)
+                        meta_path.write_text(
+                            json.dumps(
+                                {
+                                    "model": self.backend.model_name,
+                                    "count": len(self._anchor_texts),
+                                }
+                            ),
+                            encoding="utf-8",
+                        )
+                    except Exception:
+                        pass
 
-        if cache is not None and matrix.size > 0:
-            npy_path, meta_path = cache
-            try:
-                self.cache_dir.mkdir(parents=True, exist_ok=True)  # type: ignore[union-attr]
-                np.save(npy_path, matrix)
-                meta_path.write_text(
-                    json.dumps(
-                        {
-                            "model": self.backend.model_name,
-                            "count": len(self._anchor_texts),
-                        }
-                    ),
-                    encoding="utf-8",
-                )
-            except Exception:
-                pass
+        warm_up = getattr(self.backend, "warm_up", None)
+        if callable(warm_up):
+            warm_up()
 
     def classify(self, text: str) -> IntentMatch:
         """Classify text by cosine similarity against anchor phrases."""

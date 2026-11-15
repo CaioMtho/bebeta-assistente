@@ -61,6 +61,7 @@ Em linguagem natural:
 Atalhos com barra na interface Rich:
 - `/ajuda`: mostra a tabela de comandos e exemplos
 - `/notas`: exibe a tabela de anotações salvas
+- `/mic` ou `/microfone`: ativa o microfone no estado **ouvindo** com barras de volume em tempo real; pressione `Enter` para enviar (`Esc` ou `Ctrl+C` para cancelar) e veja na tela o texto entendido antes da resposta
 - `/mudo`: silencia ou reativa o áudio
 - `/parar`: interrompe a fala atual
 - `/limpar`: limpa a tela do terminal
@@ -75,3 +76,5 @@ Atalhos com barra na interface Rich:
 - `PLN_AMBIGUITY_MARGIN`: diferença mínima entre as duas melhores intenções perto do limiar (padrão: `0.03`)
 - `PLN_TTS_ENABLED`: `true` ou `false` para ativar/desativar voz por padrão
 - `PLN_OPEN_BROWSER`: `true` ou `false` para abrir pesquisas no navegador
+- `PLN_STT_LANGUAGE`: idioma do reconhecimento de voz no `/mic` (padrão: `pt-BR`)
+- `PLN_STT_SAMPLE_RATE`: taxa de amostragem do microfone em Hz (padrão: `16000`)

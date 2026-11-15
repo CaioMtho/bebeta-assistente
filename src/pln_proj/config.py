@@ -23,6 +23,17 @@ def _env_float(name: str, default: float) -> float:
         return default
 
 
+def _env_int(name: str, default: int) -> int:
+    raw_value = os.getenv(name)
+    if raw_value is None:
+        return default
+    try:
+        parsed = int(raw_value)
+    except ValueError:
+        return default
+    return parsed if parsed > 0 else default
+
+
 @dataclass(frozen=True)
 class AppConfig:
     """Centralized application configuration."""
@@ -35,6 +46,8 @@ class AppConfig:
     tts_enabled: bool
     cache_dir: Path
     open_browser: bool = True
+    stt_language: str = "pt-BR"
+    stt_sample_rate: int = 16_000
 
     @classmethod
     def from_env(
@@ -70,4 +83,6 @@ class AppConfig:
             tts_enabled=resolved_tts,
             cache_dir=base_cache,
             open_browser=_env_bool("PLN_OPEN_BROWSER", True),
+            stt_language=os.getenv("PLN_STT_LANGUAGE") or "pt-BR",
+            stt_sample_rate=_env_int("PLN_STT_SAMPLE_RATE", 16_000),
         )

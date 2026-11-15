@@ -17,6 +17,7 @@ from pln_proj.modules.comandos_respostas import (
     respostas_identidade,
     respostas_nao_entendi,
     respostas_saudacao,
+    texto_como_funciona,
     texto_funcionalidades,
 )
 from pln_proj.nlu import (
@@ -403,6 +404,13 @@ class AssistantService:
         if intent == IntentId.FUNCOES:
             return AssistantResponse(
                 text=texto_funcionalidades,
+                intent=intent.value,
+                confidence=confidence,
+            )
+
+        if intent == IntentId.COMO_FUNCIONA:
+            return AssistantResponse(
+                text=texto_como_funciona,
                 intent=intent.value,
                 confidence=confidence,
             )

@@ -7,6 +7,7 @@ from pln_proj.modules.comandos_respostas import (
     comandos_agradecimento,
     comandos_anotar,
     comandos_atualizar_anotacao,
+    comandos_como_funciona,
     comandos_concluir_anotacao,
     comandos_data,
     comandos_emocao,
@@ -25,6 +26,7 @@ class IntentId(StrEnum):
     """Identifiers for intents recognized by the assistant."""
 
     FUNCOES = "funcoes"
+    COMO_FUNCIONA = "como_funciona"
     ANOTAR = "anotar"
     LER_ANOTACOES = "ler_anotacoes"
     ATUALIZAR_ANOTACAO = "atualizar_anotacao"
@@ -55,6 +57,11 @@ INTENT_SPECS: tuple[IntentSpec, ...] = (
         id=IntentId.FUNCOES,
         description="List assistant capabilities and commands",
         anchors=tuple(comandos_funcoes),
+    ),
+    IntentSpec(
+        id=IntentId.COMO_FUNCIONA,
+        description="Explain in plain language how the assistant works",
+        anchors=tuple(comandos_como_funciona),
     ),
     IntentSpec(
         id=IntentId.ANOTAR,

@@ -2,9 +2,18 @@
 comandos_funcoes = [
     'o que você pode fazer', 'o que você faz', 'funcionalidades',
     'o que você sabe fazer', 'o que mais você sabe fazer', 'quais são suas funções',
-    'quais são seus comandos', 'o que sabe fazer', 'o que faz', 'como funciona',
+    'quais são seus comandos', 'o que sabe fazer', 'o que faz',
     'me diga suas funções', 'quais funcionalidades você tem', 'lista de comandos',
     'comandos disponíveis', 'o que você consegue fazer',
+]
+
+comandos_como_funciona = [
+    'como funciona', 'como o sistema funciona', 'como você funciona',
+    'como a bebeta funciona', 'me explica como funciona', 'explica como você funciona',
+    'como funciona por dentro', 'como você entende o que eu falo',
+    'como você entende os comandos', 'como você processa o que eu digo',
+    'me explique o funcionamento do sistema', 'como funciona essa assistente',
+    'qual a tecnologia por trás de você', 'como você foi feita',
 ]
 
 comandos_anotar = [
@@ -109,6 +118,7 @@ comandos_encerrar = [
 
 comandos = [
     comandos_funcoes,
+    comandos_como_funciona,
     comandos_anotar,
     comandos_ler_anotacoes,
     comandos_atualizar_anotacao,
@@ -128,6 +138,13 @@ comandos = [
 texto_funcionalidades = (
     'Posso criar, listar, editar, concluir e excluir lembretes e anotações, '
     'fazer pesquisas no Google, falar as horas e informar a data por extenso.'
+)
+texto_como_funciona = (
+    'É bem simples! Quando você digita ou fala no microfone (onde sua voz vira texto na hora), '
+    'eu uso uma inteligência artificial (um programa que aprende a comparar ideias parecidas) '
+    'para entender o que você quer, sem precisar de palavras decoradas. '
+    'Os seus lembretes ficam armazenados localmente no seu computador para não se perderem, '
+    'e no fim eu mostro a resposta na tela e também falo em voz alta com você!'
 )
 respostas_identidade = [
     'Eu sou a Bebeta, sua assistente pessoal!',
@@ -167,6 +184,7 @@ respostas_ambiguo = [
 
 respostas = [
     texto_funcionalidades,
+    texto_como_funciona,
     respostas_identidade,
     respostas_saudacao,
     respostas_conclusao,
