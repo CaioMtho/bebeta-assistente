@@ -38,8 +38,8 @@ class TerminalUI:
     def render_banner(self) -> None:
         self.console.print("[bold cyan]Bebeta[/]")
         self.console.print(
-            "[dim]Comandos:[/] [bold]/ajuda[/]  [bold]/notas[/]  [bold]/mudo[/]  "
-            "[bold]/parar[/]  [bold]/limpar[/]  [bold]/sair[/]\n"
+            "[dim]Comandos:[/] [bold]/ajuda[/]  [bold]/notas[/]  [bold]/mic[/]  "
+            "[bold]/microfone[/]  [bold]/mudo[/]  [bold]/parar[/]  [bold]/limpar[/]  [bold]/sair[/]\n"
         )
 
     def render_help(self) -> None:
@@ -59,7 +59,7 @@ class TerminalUI:
             ("Excluir anotação", "\"apagar lembrete 1\", \"remover nota dos ovos\", \"limpar lembretes\""),
             ("Pesquisar", "\"pesquisar sobre python\", \"buscar receita no google\""),
             ("Hora e Data", "\"que horas são?\", \"qual a data de hoje?\""),
-            ("Controles do menu", "/ajuda  |  /notas  |  /mudo  |  /parar  |  /limpar  |  /sair"),
+            ("Controles do menu", "/ajuda  |  /notas  |  /mic  |  /microfone  |  /mudo  |  /parar  |  /limpar  |  /sair"),
         ]
         for action_label, example_text in rows:
             table.add_row(action_label, example_text)
